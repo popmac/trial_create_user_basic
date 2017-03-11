@@ -52,4 +52,5 @@ end
 
 group :test do
   gem 'minitest-reporters'
+  gem 'rails-controller-testing', require: false
 end

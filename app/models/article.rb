@@ -28,4 +28,9 @@ class Article < ApplicationRecord
     self.expired_at = nil if @no_expiration
   end
 
+  class << self
+    def sidebar_articles(num = 5)
+      open.order(released_at: :desc).limit(num)
+    end
+  end
 end

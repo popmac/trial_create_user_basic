@@ -8,10 +8,16 @@ class MembersController < ApplicationController
   end
 
   def new
-    @member = Member.new
+    @member = Member.new(birthday: Date.new(1980, 1, 1))
   end
 
   def create
+    @member = Member.new(member_params)
+    if @member.save
+      redirect_to @member, notice: "会員を登録しました。"
+    else
+      render "new"
+    end
   end
 
   def edit
@@ -27,5 +33,10 @@ class MembersController < ApplicationController
   def search
     @members = Member.search(params[:q])
     render 'index'
+  end
+
+  private
+  def member_params
+    params.require(:member).permit(:number, :name, :full_name, :email, :birthday, :gender, :administrator)
   end
 end

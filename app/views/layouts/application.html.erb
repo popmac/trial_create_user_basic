@@ -8,6 +8,9 @@
 </head>
 <body>
   <div id="container">
+    <% if flash.notice %>
+      <p class="notice"><%= flash.notice %></p>
+    <% end %>
     <div id="header">
       <%= render "shared/header" %>
     </div>

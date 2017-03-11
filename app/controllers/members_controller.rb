@@ -8,12 +8,14 @@ class MembersController < ApplicationController
   end
 
   def new
+    @member = Member.new
   end
 
   def create
   end
 
   def edit
+    @member = Member.find(params[:id])
   end
 
   def update

@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class MemberTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "factory girl" do
+    member = FactoryGirl.create(:member)
+    assert_equal "Yamada Taro", member.full_name
+  end
 end

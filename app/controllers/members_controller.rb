@@ -20,4 +20,9 @@ class MembersController < ApplicationController
 
   def destroy
   end
+
+  def search
+    @members = Member.search(params[:q])
+    render 'index'
+  end
 end

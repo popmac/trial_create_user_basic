@@ -1,4 +1,4 @@
-$(document).on "ready page:load", ->
+$(document).on 'turbolinks:load', ->
   change_expired_at = ->
     if $("#article_no_expiration").prop("checked")
       $("#article_expired_at").hide()

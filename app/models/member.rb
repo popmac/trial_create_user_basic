@@ -42,7 +42,7 @@ class Member < ApplicationRecord
     end
 
     def authenticate(name, password)
-      member = Member.find_by(name: name)
+      member = find_by(name: name)
       if member && member.hashed_password.present? &&
         BCrypt::Password.new(member.hashed_password) == password
         member

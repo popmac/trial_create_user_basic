@@ -14,8 +14,8 @@ class ActiveSupport::TestCase
   private
   # ログイン状態にする
   def login_as(name, admin = false)
-    session[:member_id] = FactoryGirl.create(:member, name: name,
-      administrator: admin)
+    member = FactoryGirl.create(:member, name: name, administrator: admin)
+    session[:member_id] = member.id
   end
 
   # ログアウト状態にする

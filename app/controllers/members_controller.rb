@@ -49,6 +49,9 @@ class MembersController < ApplicationController
 
   private
   def member_params
-    params.require(:member).permit(:number, :name, :full_name, :email, :birthday, :gender, :administrator, :password, :password_confirmation)
+    attrs = [:number, :name, :full_name, :gender, :birthday, :email,
+      :password, :password_confirmation]
+    attrs << :administrator if current_member.administrator?
+    params.require(:member).permit(attrs)
   end
 end

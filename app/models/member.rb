@@ -12,6 +12,7 @@ class Member < ApplicationRecord
     uniqueness: { case_sensitive: false }
   validates :full_name, length: { maximum: 20 }
   validate :check_email
+  attr_accessor :password, :password_confirmation
 
   private
   def check_email

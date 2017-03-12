@@ -1,7 +1,14 @@
 require 'test_helper'
 
-class MembersControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+class MembersControllerTest < ActionController::TestCase
+  test "index" do
+    login_as("taro")
+    get :index
+    assert_response :success
+  end
+
+  test "index before login" do
+    get :index
+    assert_response :forbidden
+  end
 end

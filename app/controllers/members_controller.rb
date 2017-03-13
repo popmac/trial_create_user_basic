@@ -17,16 +17,23 @@ class MembersController < ApplicationController
   # 会員情報の詳細
   def show
     @member = Member.find(params[:id])
+    if params[:format].in?(["jpg", "png", "gif"])
+      send_image
+    else
+      render "show"
+    end
   end
 
   # 新規作成フォーム
   def new
     @member = Member.new(birthday: Date.new(1980, 1, 1))
+    @member.build_image
   end
 
   # 更新フォーム
   def edit
     @member = Member.find(params[:id])
+    @member.build_image unless @member.image
   end
 
   # 会員の新規登録
@@ -62,6 +69,17 @@ class MembersController < ApplicationController
     attrs = [:number, :name, :full_name, :gender, :birthday, :email,
       :password, :password_confirmation]
     attrs << :administrator if current_member.administrator?
+    attrs << { image_attributes: [:_destroy, :id, :uploaded_image] }
     params.require(:member).permit(attrs)
+  end
+
+  # 画像送信
+  def send_image
+    if @member.image.present?
+      send_data @member.image.data,
+        type: @member.image.content_type, disposition: "inline"
+    else
+      raise NotFound
+    end
   end
 end

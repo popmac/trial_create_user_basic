@@ -12,4 +12,18 @@ class Entry < ApplicationRecord
   scope :full, ->(member) {
     where("member_id = ? OR status <> ?", member.id, "draft") }
   scope :readable_for, ->(member) { member ? full(member) : common }
+  
+  class << self
+    def status_text(status)
+      I18n.t("activerecord.attributes.entry.status_#{status}")
+    end
+
+    def status_options
+      STATUS_VALUES.map { |status| [status_text(status), status] }
+    end
+
+    def sidebar_entries(member, num = 5)
+      readable_for(member).order(posted_at: :desc).limit(num)
+    end
+  end
 end

@@ -1,0 +1,2 @@
+class MemberImage < ApplicationRecord
+end

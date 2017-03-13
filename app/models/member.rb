@@ -2,6 +2,7 @@ class Member < ApplicationRecord
   include EmailAddressChecker
 
   has_many :entries, dependent: :destroy
+  has_one :image, class_name: "MemberImage", dependent: :destroy
 
   validates :number, presence: true,
     numericality: { only_integer: true,

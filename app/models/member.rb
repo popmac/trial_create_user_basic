@@ -2,6 +2,8 @@ class Member < ApplicationRecord
   include EmailAddressChecker
 
   has_many :entries, dependent: :destroy
+  has_many :votes, dependent: :destroy
+  has_many :voted_entries, through: :votes, source: :entry
   has_one :image, class_name: "MemberImage", dependent: :destroy
   accepts_nested_attributes_for :image, allow_destroy: true
 
@@ -26,6 +28,10 @@ class Member < ApplicationRecord
       self.hashed_password = BCrypt::Password.create(val)
     end
     @password = val
+  end
+
+  def votable_for?(entry)
+    entry && entry.author != self && !votes.exists?(entry_id: entry.id)
   end
 
   private

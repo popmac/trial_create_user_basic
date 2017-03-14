@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resource :account
 
   namespace :admin do
-    root to: "top#index"
+    root 'top#index', as: :root
     resources :members do
       collection { get "search" }
     end

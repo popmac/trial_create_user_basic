@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   get "about" => "top#about", as: "about"
   get "bad_request" => "top#bad_request"
   get "internal_server_error" => "top#internal_server_error"
-  get "lesson/:action(/:name)" => "lesson"
 
   resources :members, only: [:index, :show] do
     collection { get "search" }
